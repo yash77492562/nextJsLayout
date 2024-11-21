@@ -1,0 +1,28 @@
+// This is your Prisma schema file.
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String              @id @default(uuid())
+  username         String
+  password         String
+}
+
+// npx prisma migrate dev --name user
+// npx prisma studio
+
+// .env in prisma_database folder
+// DATABASE_URL="postgresql://postgres:********@localhost:5432/postgres"
+// TOKEN_VAULT_DATABASE_URL="postgresql://postgres:********@localhost:5431/postgres"
+
+// docker command if use docker postgress
+// schema :- docker run -d  --name postgres-container -e POSTGRES_PASSWORD=$(openssl rand -hex 16) -e POSTGRES_USER=your_username -e POSTGRES_DB=your_database -p 5432:5432  postgres:latest
+// tokenVault:-  -docker run -d  --name postgres-container -e POSTGRES_PASSWORD=$(openssl rand -hex 16) -e POSTGRES_USER=your_username -e POSTGRES_DB=your_database -p 5432:5431  postgres:latest

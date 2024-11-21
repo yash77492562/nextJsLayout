@@ -1,0 +1,27 @@
+// In prisma/tokenVault.prisma
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/tokenVault-client" // Output directory for the main client
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("TOKEN_VAULT_DATABASE_URL") // Use a different environment variable for the token database
+}
+
+model AccountTokenVault {
+  id                    String   @id @default(uuid())
+  token                 String   @unique
+  userId       String
+  accountNumber    String            @unique
+  accountNumberIndex   Int     @default(autoincrement())
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  // Optional: You can include additional fields as needed
+}
+
+// npx prisma migrate dev --schema=prisma/tokenVault.prisma --name user
+// in order to run prisma studio  :-    npx prisma studio --schema=prisma/tokenVault.prisma
+

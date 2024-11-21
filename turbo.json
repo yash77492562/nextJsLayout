@@ -1,6 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
+  "globalDependencies": ["**/.env.*local"],
+  "globalEnv": ["ENCRYPTION_KEY","SECRET_KEY_NUMBER","JWT_SECRET"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -14,6 +16,14 @@
       "dependsOn": ["^check-types"]
     },
     "dev": {
+      "env": ["ENCRYPTION_KEY", "SECRET_KEY_NUMBER", "JWT_SECRET"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env.development.local",
+        ".env.local",
+        ".env.development",
+        ".env"
+      ],
       "cache": false,
       "persistent": true
     }

@@ -1,0 +1,94 @@
+import React, { forwardRef } from 'react';
+
+interface InputProps {
+  index?: number;  // Optional
+  type: string;
+  maxLength?: number;  // Optional
+  name: string;
+  value?: string;
+  id?:string
+  placeholder?: string;
+  className?: string;  // Allow passing custom Tailwind styles
+  parentClassName?:string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+}
+
+// Use forwardRef to pass down the ref correctly
+export const Input = forwardRef<HTMLInputElement, InputProps>(({
+  index, value, maxLength, type, name, placeholder, className,parentClassName,id = "", onChange, onKeyDown
+}, ref) => {
+  return (
+    <div className={`${parentClassName}`}>
+      <input
+        className={`bg-gray-50 font-semibold border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${className}`}
+        name={name}
+        value={value !== undefined ? value : undefined}
+        key={index !== undefined ? index : undefined}  // Only set key if index is defined
+        type={type}
+        id={id}
+        maxLength={maxLength !== undefined ? maxLength : undefined}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        ref={ref}  // Attach the ref here using forwardRef
+        placeholder={placeholder}
+      />
+    </div>
+  );
+});
+
+
+interface LabelProps {
+  name: string;
+  label: string;
+  className?: string;  // Allow passing custom Tailwind styles
+  parentClassName?:string
+  htmlFor?:string
+}
+
+export function Label({ label, name, className , htmlFor = "" , parentClassName='' }: LabelProps) {
+  return (
+    <div className={`${parentClassName}`} >
+      <label className={`mb-2 font-semibold ${className}`} id={name} htmlFor={htmlFor}>
+        {label}
+      </label>
+    </div>
+  );
+}
+
+
+export const DesignInput = forwardRef<HTMLInputElement, InputProps>(({
+  index, value, maxLength, type, name, placeholder, className,id = "", onChange, onKeyDown
+}, ref) => {
+  return (
+    <div >
+      <input
+        className={`bg-transparent focus:outline-none focus:border-b-2 focus:ring-0 border-b-2 font-normal ${className}`}
+        name={name}
+        value={value !== undefined ? value : undefined}
+        key={index !== undefined ? index : undefined}  // Only set key if index is defined
+        type={type}
+        id={id}
+        maxLength={maxLength !== undefined ? maxLength : undefined}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        ref={ref}  // Attach the ref here using forwardRef
+        placeholder={placeholder}
+      />
+    </div>
+  );
+});
+
+
+
+
+
+
+{/* <input
+{...register('email')}
+className='w-5/6 bg-transparent focus:outline-none focus:border-b-2 focus:ring-0 border-b-2 font-normal'
+id='email'
+type="email"
+placeholder='example12@gmail.com'
+onChange={(e) => console.log(e.target.value)} 
+/> */}
